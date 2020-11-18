@@ -9,6 +9,16 @@ from os import *
 from ctypes import windll
 from pyinputplus import inputInt, inputFloat
 from time import  sleep
+# making global var
+def banner():
+    print(""" 
+    █████╗ ██╗   ██╗████████╗ ██████╗ ██████╗ ███████╗ █████╗ ███╗   ███╗
+    ██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗████╗ ████║
+    ███████║██║   ██║   ██║   ██║   ██║██████╔╝███████╗███████║██╔████╔██║
+    ██╔══██║██║   ██║   ██║   ██║   ██║██╔═══╝ ╚════██║██╔══██║██║╚██╔╝██║
+    ██║  ██║╚██████╔╝   ██║   ╚██████╔╝██║     ███████║██║  ██║██║ ╚═╝ ██║
+    ╚═╝  ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝
+                                                                      """)
 FAILSAFE = True
 SCRWIDTH, SCRHEIGHT = size()
 
@@ -16,6 +26,7 @@ def alert(text="", title=""):
     return windll.user32.MessageBoxW(0, text, title, 0)
 
 def cls():
+    banner()
     cls_var = system("cls")
     return cls_var
 
@@ -32,6 +43,7 @@ def countdown(type):
 def main():
     cls()
     global option
+    banner()
     while True:
         try:
             option = input("autopsam$")
@@ -40,6 +52,9 @@ def main():
             if option.lower() == "help":
                 # TODO: print the help
                 pass
+            if option.lower() == "clear" or option.lower() == "cls":
+                cls()
+
             if option.lower() == "autoclick":
                 print("Please choose mode:")
                 print("1. Lock you mouse on a specific pos to avoid moving")
