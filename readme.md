@@ -1,22 +1,16 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-<title>Autopsam</title>
 <style>
 body{
 color: black;
 background: white;
 }
 body:hover{
-color: white;
+color: rgba(255,255,250,0);
 background: black;
 }
 </style>
-</head>
 <body>
 <p>sometext</p>
-
-
-
 </body>
 </html>
