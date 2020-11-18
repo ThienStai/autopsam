@@ -5,6 +5,7 @@ A much more powerfull, feature-rich and compact version of MessAttack
 """
 from pyautogui import *
 #from selenium.webdriver import *
+from threading import Thread
 from os import *
 from ctypes import windll
 from pyinputplus import inputInt, inputFloat
@@ -47,7 +48,7 @@ def main():
     while True:
         try:
             option = input("autopsam$")
-            if option.lower() == "exit":
+            if option.lower() == "exit":  # user typed exit
                 exit(0)
             if option.lower() == "help":
                 # TODO: print the help
