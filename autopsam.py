@@ -54,7 +54,6 @@ def main():
                 pass
             if option.lower() == "clear" or option.lower() == "cls":
                 cls()
-
             if option.lower() == "autoclick":
                 print("Please choose mode:")
                 print("1. Lock you mouse on a specific pos to avoid moving")
