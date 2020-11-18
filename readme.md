@@ -1,7 +1,5 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-<title>Autopsam</title>
 <style>
 body{
 color: black;
@@ -12,7 +10,6 @@ color: white;
 background: black;
 }
 </style>
-</head>
 <body>
 <p>sometext</p>
 
