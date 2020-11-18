@@ -7,7 +7,7 @@ from pyautogui import *
 #from selenium.webdriver import *
 from threading import Thread
 from os import *
-from ctypes import windll
+# from ctypes import windll
 from pyinputplus import inputInt, inputFloat
 from time import  sleep
 # making global var
@@ -23,15 +23,18 @@ def banner():
 FAILSAFE = True
 SCRWIDTH, SCRHEIGHT = size()
 
-def alert(text="", title=""):
-    return windll.user32.MessageBoxW(0, text, title, 0)
-
 def cls():
-    banner()
     cls_var = system("cls")
+    banner()
+    return cls_var
+def cls_nobanner():
+    cls_var = system("cls")
+    # banner()
     return cls_var
 
+
 def countdown(type):
+    cls_nobanner()
     print(type + " started in 3")
     sleep(1)
     print(type + " started in 2")
@@ -42,19 +45,19 @@ def countdown(type):
 
 
 def main():
-    cls()
     global option
-    banner()
+    cls()
     while True:
+        cls()
         try:
-            option = input("autopsam$")
+            option = input("autopsam$ ")
             if option.lower() == "exit":  # user typed exit
                 exit(0)
             if option.lower() == "help":  # user typed help
                 # TODO: print the help
                 print("Loading help file....")
                 pass
-            if option.lower() == "clear" or option.lower() == "cls":
+            if option.lower() == "clear" or option.lower() == "cls": # user want to clrscr
                 cls()
             if option.lower() == "autoclick":
                 print("Please choose mode:")
@@ -86,12 +89,22 @@ def main():
                     for i in range(CLICKTIMES):
                         click(interval=INTERVAL)
                     alert(text="Done", title="Operation completed!")
+            if option.lower() == "box":
+                BOXCOUNT = inputInt("Box amount = ", min=1, max=2147483647)
+                text = input("Box text = ")
+                title = input("Box title = ")
+                countdown("Box raid")
+                for i in range(BOXCOUNT):
+                    t = Thread(target=alert, kwargs={"text": text, "title" : title})
+                    t.start()
+
             else:
                 print("Invalid command!!!")
                 pass
         except (FailSafeException, KeyboardInterrupt):
-            alert(text="Operation canceled", title="You cancled the operation")
-            cls()
+            # alert(text="Operation canceled", title="You cancled the operation")
+            print("Operation cancled")
+            cls_nobanner()
             pass
 
 
