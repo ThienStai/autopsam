@@ -7,8 +7,11 @@ from pyautogui import *
 #from selenium.webdriver import *
 from os import *
 from ctypes import windll
-from pyinputplus import inputInt
+from pyinputplus import inputInt, inputFloat
+from time import  sleep
 FAILSAFE = True
+SCRWIDTH, SCRHEIGHT = size()
+
 def alert(text="", title=""):
     return windll.user32.MessageBoxW(0, text, title, 0)
 
@@ -16,12 +19,22 @@ def cls():
     cls_var = system("cls")
     return cls_var
 
+def countdown(type):
+    print(type + " started in 3")
+    sleep(1)
+    print(type + " started in 2")
+    sleep(1)
+    print(type + " started in 1")
+    sleep(1)
+    print("HAVE FUN!")
+
 
 def main():
+    cls()
     global option
     while True:
         try:
-            option = input("autopsam>")
+            option = input("autopsam$")
             if option.lower() == "exit":
                 exit(0)
             if option.lower() == "help":
@@ -31,21 +44,40 @@ def main():
                 print("Please choose mode:")
                 print("1. Lock you mouse on a specific pos to avoid moving")
                 print("2. Keep click while you moving the mouse")
-                option = input("Your option = ")
-                if option == "1": # user choose autoclick + lock
+                print("0. Go back to main menu")
+                option = inputInt("Mode =  ", min=0, max=2)
+                if option == 0:
+                    pass
+                if option == 1: # user choose autoclick + lock
                     print("This will lock you mouse and prevent you from using the mouse")
                     print("Are you sure you want to continue:(y/n)", end=" ")
                     option = input()
                     if option.lower() == "y":
+                        XCOR = inputInt("X coor to click = ", min=1, max=SCRWIDTH)
+                        YCOR = inputInt("Y coor to click = ", min=1, max=SCRHEIGHT)
                         CLICKTIMES = inputInt("Click amount = ",min=1, max=2147483647 )
-
+                        INTERVAL = inputFloat("Delay between each click = ", min=0.001, max=2147483647)
+                        countdown("Autoclick")
+                        for i in range(CLICKTIMES):
+                            click(x=XCOR, y=YCOR, interval=INTERVAL)
+                        alert(text="Done", title="Operation completed!")
                     else:
                         print("You typed \"n\" or invalid option ")
-
-
+                elif option == 2:
+                    CLICKTIMES = inputInt("Click amount = ", min=1, max=2147483647)
+                    INTERVAL = inputFloat("Delay between each click = ", min=0.001, max=2147483647)
+                    countdown("Autoclick")
+                    for i in range(CLICKTIMES):
+                        click(interval=INTERVAL)
+                    alert(text="Done", title="Operation completed!")
+        else:
+            print("Invalid command!!!")
+            pass
         except (FailSafeException, KeyboardInterrupt):
             alert(text="Operation canceled", title="You cancled the operation")
+            cls()
             pass
+
 
 if __name__ == '__main__':
     main()
