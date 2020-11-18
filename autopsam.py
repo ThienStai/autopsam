@@ -50,8 +50,9 @@ def main():
             option = input("autopsam$")
             if option.lower() == "exit":  # user typed exit
                 exit(0)
-            if option.lower() == "help":
+            if option.lower() == "help":  # user typed help
                 # TODO: print the help
+                print("Loading help file....")
                 pass
             if option.lower() == "clear" or option.lower() == "cls":
                 cls()
