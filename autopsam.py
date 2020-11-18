@@ -70,9 +70,9 @@ def main():
                     for i in range(CLICKTIMES):
                         click(interval=INTERVAL)
                     alert(text="Done", title="Operation completed!")
-        else:
-            print("Invalid command!!!")
-            pass
+            else:
+                print("Invalid command!!!")
+                pass
         except (FailSafeException, KeyboardInterrupt):
             alert(text="Operation canceled", title="You cancled the operation")
             cls()
