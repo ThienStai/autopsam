@@ -30,8 +30,7 @@ SCRWIDTH, SCRHEIGHT = size()
 
 def messthread(username="", password="", target="", logged_in=True, time=int(), enter_delay=float(), string=""):
     global browser
-    if browser is None:
-        browser = drivergen()
+    browser = drivergen()
     if logged_in:
         browser.get(url=("https://www.messenger.com/t/" + target))
     else:
@@ -133,7 +132,7 @@ def countdown(type):
 
 def main():
     cls()
-    global FAILSAFE, option, browser
+    global FAILSAFE, option, browser, USERNAME, PASSWORD,THREADCOUNT,target,letter_delay,string,time_thread, enter_delay
     while True:
         cls()
         try:
@@ -176,7 +175,7 @@ def main():
                     for i in range(CLICKTIMES):
                         click(interval=INTERVAL)
                     alert(text="Done", title="Operation completed!")
-            if option.lower() == "box":
+            if str(option).lower() == "box":
                 BOXCOUNT = inputInt("Box amount = ", min=1, max=2147483647)
                 text = input("Box text = ")
                 title = input("Box title = ")
@@ -225,37 +224,25 @@ def main():
                     sleep(1)
             elif option.lower() == "mess_mul_thread":
                 target = input("Target username/id = ")
-                print("Have you logged in your accout?")
                 letter_delay = inputFloat("Delay between each letters = ", min=0.001, max=2147483647)
                 string = input("String you want to spam = ")
+                enter_delay = inputFloat("Delay between typing string and press enter = ", min=0.002,max=2147483647)
                 time_thread = inputInt("Time to spam for each thread = ", min=1, max=2147483647)
-                logged = inputYesNo("Have you logged into your account yet? (y/n) ")
-                if USERNAME != None and PASSWORD != None:
-                    USERNAME = input("Your username/id/email = ")
-                    PASSWORD = inputPassword("You password = ", mask="*")
+                USERNAME = input("Your username/id/email = ")
+                PASSWORD = inputPassword("You password = ", mask="*")
                 print("For each thread, this will spawn a new browser window and spam ")
                 THREADCOUNT = inputInt("Thread count = ", min=1, max=2147483647)
                 for i in range(THREADCOUNT):
-                    if logged.lower() == "yes":
-                        t = Thread(target=messthread, kwargs={"username"    : USERNAME,
-                                                              "password"    : PASSWORD,
-                                                              "target"      : target,
-                                                              "string"      : string,
-                                                              "logged_in"   : True,
-                                                              "time"        : time_thread,
-                                                              "enter_delay" : enter_delay
-                                                              })
-                        t.start()
-                    else:
-                        t = Thread(target=messthread, kwargs={"username": USERNAME,
-                                                              "password": PASSWORD,
-                                                              "target": target,
-                                                              "string": string,
-                                                              "logged_in": False,
-                                                              "time": time_thread,
-                                                              "enter_delay": enter_delay
-                                                              })
-                        t.start()
+                    t = Thread(target=messthread, kwargs={"username"    : USERNAME,
+                                                          "password"    : PASSWORD,
+                                                          "target"      : target,
+                                                          "string"      : string,
+                                                          "logged_in"   : True,
+                                                          "time"        : time_thread,
+                                                          "enter_delay" : enter_delay
+                                                          })
+                    t.start()
+
                 alert(text="Done", title="Operation completed!")
             else:
                 print("Invalid command!!!")
